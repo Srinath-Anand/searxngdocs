@@ -72,4 +72,5 @@ DONE! 👍 😎
 - Open a terminal window.
 - Type `cd /opt/searxng`
 - Type `sudo python3 -m searx.webapp`.
-- Open a browser, type `localhost:`port-number | the port number will be shown in the terminal window. 
+- Open a browser, type `localhost:`port-number 
+    (The port number will be shown in the terminal window. )
