@@ -1,37 +1,75 @@
-## Welcome to GitHub Pages
+# How to set up a SearXNG instance for yourself
+### (Done on Ubuntu 20.04 Windows Subsystem for Linux 2 (Windows 10) ) 
+---
+### For WSL configuration, refer [the Microsoft Docs](https://docs.microsoft.com/en-us/windows/wsl/install-win10#manual-installation-steps)
+#### NOTE: When the password is needed for *sudo* commands, please enter it. It will not be mentioned in this manual henceforth.
+- Preferably, start with a fresh install of Ubuntu (if on WSL) 
+  - From the Microsoft Store
+  - Or using winget - type `winget install Canonical.Ubuntu` in a CMD window.
+  
+You may now open Ubuntu from the Start Menu.
+Type the commands & follow the instructions below:
+---
 
-You can use the [editor on GitHub](https://github.com/Srinath-Anand/searxdocs.github.io/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+Upgrade the system packages - `sudo apt-get update && sudo apt-get upgrade`
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+Enter *y* when prompted.
 
-### Markdown
+Install Python's package manager *pip* - `sudo apt install python3-pip`
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+Install the dependencies: `sudo apt-get install git build-essential python-babel zlib1g-dev libffi-dev libssl-dev libxslt-dev python-dev -y`
 
-```markdown
-Syntax highlighted code block
+Move to the *\opt* directory: `cd /opt`
 
-# Header 1
-## Header 2
-### Header 3
+Clone the repository locally - `sudo git clone https://github.com/searxng/searxng.git searxng` to create a new folder **searxng** within /opt.
 
-- Bulleted
-- List
+Move to *\searxng* : `cd /opt/searxng`
 
-1. Numbered
-2. List
+Install the Python Virtualenv now - `sudo apt install python3-virtualenv`
 
-**Bold** and _Italic_ and `Code` text
+Add this to your ~/.bashrc file :
 
-[Link](url) and ![Image](src)
-```
+`sudo vim ~/.bashrc` - edit the file in vim
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+Add this to the end: `export PATH="/home/username/.local/bin:$PATH"` where 'username' is your Linux username.
+  
+Quit Vim with `:wq`
+  
+`source ~/.bashrc` 
+  
+### Close the window & reopen a Ubuntu terminal/window 
+  
+---
+ 
+Back at the terminal: `sudo virtualenv -p python3 searxng-ve` - create a new  virtualenv called searxng-ve
+    
+Activate the virtualenv - `. ./searxng-ve/bin/activate`  
+  
+Within the virtualenv (prompt should change to `(searxng-ve).....$ ` etc.)
+  
+Type `sudo pip3 install -r requirements.txt ` - to install all the necessary packages/modules
+  
+#### Note: all Packages might not have gotten installed - can be installed later (using `pip install `[name-of-missing-package] )
+  
+Move to the Home directory - `cd ~ `
+ 
+Change a few settings (some are optional) - `sudo vim /opt/searxng/searx/settings.yml`  
+  - Change the port number - if desired
+  - Change your instance name - if desired
+  - Change the `ultrasecretkey` like this :
+      ![image](https://user-images.githubusercontent.com/71964994/128127252-c44fdd8e-bda4-42bf-826d-f9c1dc141fe3.png)
+  
+      to any string of the same length (by changing the letter's cases for eg. )
 
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/Srinath-Anand/searxdocs.github.io/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+---
+  
+DONE! 👍 😎
+  
+---
+ 
+### How to use your instance
+  
+- Open a terminal window.
+- Type `cd /opt/searxng`
+- Type `sudo python3 -m searx.webapp`.
+- Open a browser, type `localhost:`port-number | the port number will be shown in the terminal window. 
