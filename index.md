@@ -41,7 +41,7 @@ Quit Vim with `:wq`
   
 ---
  
-Back at the terminal: `sudo virtualenv -p python3 searxng-ve` - create a new  virtualenv called searxng-ve
+Back at the terminal: `cd /opt/searxng && sudo virtualenv -p python3 searxng-ve` - create a new  virtualenv called searxng-ve
     
 Activate the virtualenv - `. ./searxng-ve/bin/activate`  
   
